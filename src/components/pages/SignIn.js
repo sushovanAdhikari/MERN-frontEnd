@@ -11,13 +11,20 @@ import Button from '@material-ui/core/Button';
 
 import './pages.css'
 
+const error = {
+    color: "red"
+  };
+
+export const docSel = elem => document.getElementById(elem);
+
 
 export class SignIn extends Component {
 
     state = {
         email: "",
         password: "",
-        loggedIn: false
+        loggedIn: false,
+        Error:""
     }
 
     //classes = useStyles();
@@ -26,11 +33,39 @@ export class SignIn extends Component {
 
 
     onSubmit = (e) => {
-        e.preventDefault();
-        axios.post('http://localhost:3000/api/user/login', {email: this.state.email, password: this.state.password}).then(this.setState({ loggedIn: true}), console.log('successful'))
+        //e.preventDefault();
+        axios
+        .post('http://localhost:3000/api/user/login', {
+            email: this.state.email,
+            password: this.state.password
+        })
+            .then(res => {
+               console.log(res)
+               localStorage.setItem("Token", res.data.token)
+               this.setState({ loggedIn: true })
+            })
+            .catch(e => {
+                console.log(e);
+                alert('Email or Password wrong')
+            })
     }
 
-    onChangeEmail = (e) => this.setState({ email: e.target.value })
+    onChangeEmail = (e) => {
+        this.setState({ Error: "" });
+        let emailElem = docSel("emailError");
+        let newEmail = e.target.value;
+        this.setState({ email: newEmail });
+
+        if(newEmail === "") {
+            emailElem.innerHTML = "Please enter your email."
+        } else {
+            if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newEmail)) {
+                emailElem.innerHTML = "Please enter valid email.";
+              } else {
+                emailElem.innerHTML = "";
+              }
+        }
+    }
 
     onChangePassword = (e) => this.setState({ password: e.target.value})
 
@@ -94,35 +129,8 @@ export class SignIn extends Component {
         else{
         return (
             <Router>
-                {/* <div style = {formBox} >
-                <form onSubmit={this.onSubmit} style= {{ display: 'flex', flexDirection:"column", alignItems:"center" }}>
-                    <input type="text" 
-                    name= "email" 
-                    style = {{flex: '10', padding: '5px', marginBottom: '15px' }}
-                    placeholder = "Email"
-                    value =  { this.state.email }
-                    onChange = {this.onChange}
-                    />
-
-                    <input type="text" 
-                    name= "password" 
-                    style = {{flex: '10', padding: '5px' }}
-                    placeholder = "Password"
-                    value =  { this.state.password }
-                    onChange = {this.onChange}
-                    />
-
-                    <Button variant="primary"
-                        type= "submit"
-                        value = "Log In"
-                        className = "btn"
-                        style = {{ flex: '1', marginTop: '10px' }}
-                    >Log In</Button>
-                </form>
-                </div> */}
-
-
-        <Card style= {styles.card}>
+            
+            <Card style= {styles.card}>
             <CardContent style= {styles.cardContent}>
 
             {/* <form className={this.classes.container} noValidate autoComplete="off"> */}
@@ -143,11 +151,14 @@ export class SignIn extends Component {
             onChange = {this.onChangeEmail}
              />
 
+             <p style={error} id="emailError" />
+
             <TextField
+                autoFocus
                 id="outlined-search"
                 label="Password"
                 type="search"
-                margin="normal"
+                margin="dense"
                 variant="outlined"
                 value =  { this.state.password }
                 onChange = {this.onChangePassword}
@@ -164,13 +175,10 @@ export class SignIn extends Component {
 
             </Card>
 
+            </Router> 
 
-
-            </Router>
-            
-
-        )
-            }
+            )
+        }
     }
 }
 

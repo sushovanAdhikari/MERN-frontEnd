@@ -5,8 +5,23 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
-class Table extends Component {
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-mdl/extra/material.css';
+import 'react-mdl/extra/material.js'
+
+
+const error = {
+  color: "red"
+};
+
+export class Table extends Component {
 
   constructor(props){
 
@@ -127,6 +142,12 @@ updateEmployee = e => {
         borderRadius: '20px',
         fontFamily: 'Alegreya',
         //fontWeight: 'bold'
+        }, 
+
+        tableData : {
+          textDecoration: 'underline',
+          color: '#3f51b5',
+          cursor: 'pointer'
         }
     }
     return (
@@ -142,7 +163,7 @@ updateEmployee = e => {
                 { (this.props.employees.length > 0) ?  this.props.employees.map( (employee, index) => {
                   return (
                       <tr key= { index } > 
-                      <td><span onClick={ (e) =>   {this.handleClickOpen(employee)}}>  { employee.firstName } { employee.lastName } </span> </td>
+                      <td><span onClick={ (e) =>   {this.handleClickOpen(employee)}}>  <span style = {styles.tableData}>{ employee.firstName } { employee.lastName } </span> </span> </td>
                       <td>{ employee.email } </td>
                       </tr>
   
@@ -163,6 +184,8 @@ updateEmployee = e => {
                   onChange = {this.handlefirstName}                            
                   fullWidth
                 />
+                <p style={error} id="firstNameError" />
+                
    
                 <TextField
                   autoFocus
@@ -194,15 +217,71 @@ updateEmployee = e => {
                   fullWidth
                 />
   
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="State"
-                  value = {this.state.state}
-                  onChange = {this.handleState}
-                  fullWidth
-                />
+                <FormControl required fullWidth>
+                <InputLabel htmlFor="age-required" >State</InputLabel>
+                  <Select
+                    value = {this.state.state}
+                    onChange={this.handleState}
+                    name="state"
+                    inputProps={{
+                      id: 'age-required',
+                    }}
+                  >
+
+            <MenuItem value={'Alabama'}>Alabama</MenuItem>
+            <MenuItem value={'Alaska'}>Alaska</MenuItem>
+            <MenuItem value={'Arizona'}>Arizona</MenuItem>
+            <MenuItem value={'Arkansas'}>Arkansas</MenuItem>
+            <MenuItem value={'California'}>California</MenuItem>
+            <MenuItem value={'Colorado'}>Colorado</MenuItem>
+            <MenuItem value={'Connecticut'}>Connecticut</MenuItem>
+            <MenuItem value={'Delaware'}>Delaware</MenuItem>
+            <MenuItem value={'DistrictOfColumbia'}>District Of Columbia</MenuItem>
+            <MenuItem value={'Florida'}>Florida</MenuItem>
+            <MenuItem value={'Georgia'}>Georgia</MenuItem>
+            <MenuItem value={'Hawaii'}>Hawaii</MenuItem>
+            <MenuItem value={'Idaho'}>Idaho</MenuItem>
+            <MenuItem value={'Illinois'}>Illinois</MenuItem>
+            <MenuItem value={'Indiana'}>Indiana</MenuItem>
+            <MenuItem value={'Iowa'}>Iowa</MenuItem>
+            <MenuItem value={'Kansas'}>Kansas</MenuItem>
+            <MenuItem value={'Kentucky'}>Kentucky</MenuItem>
+            <MenuItem value={'Louisiana'}>Louisiana</MenuItem>
+            <MenuItem value={'Maine'}>Maine</MenuItem>
+            <MenuItem value={'Maryland'}>Maryland</MenuItem>
+            <MenuItem value={'Massachusetts'}>Massachusetts</MenuItem>
+            <MenuItem value={'Michigan'}>Michigan</MenuItem>
+            <MenuItem value={'Minnesota'}>Minnesota</MenuItem>
+            <MenuItem value={'Mississippi'}>Mississippi</MenuItem>
+            <MenuItem value={'Missouri'}>Missouri</MenuItem>
+            <MenuItem value={'Montana'}>Montana</MenuItem>
+            <MenuItem value={'Nebraska'}>Nebraska</MenuItem>
+            <MenuItem value={'Nevada'}>Nevada</MenuItem>
+            <MenuItem value={'NewHampshire'}>New Hampshire</MenuItem>
+            <MenuItem value={'NewJersey'}>New Jersey</MenuItem>
+            <MenuItem value={'NewMexico'}>New Mexico</MenuItem>
+            <MenuItem value={'NewYork'}>New York</MenuItem>
+            <MenuItem value={'NorthCarolina'}>North Carolina</MenuItem>
+            <MenuItem value={'NorthDakota'}>North Dakota</MenuItem>
+            <MenuItem value={'Ohio'}>Ohio</MenuItem>
+            <MenuItem value={'Oklahoma'}>Oklahoma</MenuItem>
+            <MenuItem value={'Oregon'}>Oregon</MenuItem>
+            <MenuItem value={'Pennsylvania'}>Pennsylvania</MenuItem>
+            <MenuItem value={'RhodeIsland'}>Rhode Island</MenuItem>
+            <MenuItem value={'SouthCarolina'}>South Carolina</MenuItem>
+            <MenuItem value={'SouthDakota'}>South Dakota</MenuItem>
+            <MenuItem value={'Tennessee'}>Tennessee</MenuItem>
+            <MenuItem value={'Texas'}>Texas</MenuItem>
+            <MenuItem value={'Utah'}>Utah</MenuItem>
+            <MenuItem value={'Vermont'}>Vermont</MenuItem>
+            <MenuItem value={'Virginia'}>Vermont</MenuItem>
+            <MenuItem value={'Washington'}>Vermont</MenuItem>
+            <MenuItem value={'Wyoming'}>Vermont</MenuItem>
+            <MenuItem value={'WestVirginia'}>West Virginia</MenuItem>
+
+                  </Select>
+                  <FormHelperText>Required</FormHelperText>
+                  </FormControl>
   
                 <TextField
                   autoFocus
