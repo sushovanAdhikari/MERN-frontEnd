@@ -3,7 +3,6 @@ import { Switch, Route } from "react-router-dom";
 import { SignIn } from "./components/pages/SignIn";
 import { Dashboard } from "./components/pages/Dashboard";
 import { PrivateRoute } from "./PrivateRoute";
-//import { NonPrivateRoute } from "./NonPrivateRoute";
 
 
 const Routes = () => (
