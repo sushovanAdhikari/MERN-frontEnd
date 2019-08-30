@@ -167,35 +167,6 @@ export class Dashboard extends Component {
     }
   };
 
-  // postEmployee = e => {
-  //   e.preventDefault();
-  //   let EmployeeData = {
-  //     firstName: this.state.firstName,
-  //     lastName: this.state.lastName,
-  //     address: this.state.address,
-  //     city: this.state.city,
-  //     state: this.state.state,
-  //     zip: this.state.zip,
-  //     homephone: this.state.homephone,
-  //     cellphone: this.state.cellphone,
-  //     email: this.state.email
-  //   };
-
-  //   axios
-  //     .post("http://localhost:3000/api/employees/post", EmployeeData)
-  //     .then(res => {
-  //       if (res.data.errors) {
-  //         this.setState({ Error: res.data.errors });
-  //       } else {
-  //         this.setState(prevState => ({
-  //           Employees: [EmployeeData, ...prevState.Employees]
-  //         }));
-  //         this.handleClose();
-  //         console.log("post request successful");
-  //       }
-  //     });
-  // };
-
   handlefirstName = e => {
     this.setState({ Error: "" });
     let newfirstName = e.target.value;
